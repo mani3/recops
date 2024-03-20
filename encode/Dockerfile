@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-RUN apt-get update && apt-get install -y locales-all
+RUN apt update && apt install -y locales-all
 ENV LANG=ja_JP.UTF8
 ENV TZ=Asia/Tokyo
 ARG DEBIAN_FRONTEND=noninteractive
