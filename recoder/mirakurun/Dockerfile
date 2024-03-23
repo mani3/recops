@@ -16,6 +16,7 @@ RUN apt-get update && \
   apt-get upgrade -y && \
   apt-get install -y --no-install-recommends \
   ca-certificates \
+  cmake \
   make \
   gcc \
   g++ \
@@ -45,6 +46,7 @@ RUN git clone https://github.com/stz2012/libarib25.git && \
 
 RUN git clone https://github.com/stz2012/recpt1.git && \
   cd recpt1/recpt1/ && \
+  ./autogen.sh && \
   ./configure --enable-b25 && \
   make && \
   make install && \

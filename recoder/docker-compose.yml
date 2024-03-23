@@ -1,11 +1,10 @@
-# https://rasumus.hatenablog.com/entry/2023/10/09/140518
 version: '3'
 services:
     mirakurun:
         container_name: mirakurun
         build:
-            context: mirakurun
-            dockerfile: mirakurun/Dockerfile
+            context: Mirakurun
+            dockerfile: docker/Dockerfile
         image: chinachu/mirakurun
         cap_add:
             - SYS_ADMIN
@@ -24,6 +23,7 @@ services:
             - /dev/px4video5:/dev/px4video5
             - /dev/px4video6:/dev/px4video6
             - /dev/px4video7:/dev/px4video7
+            - /dev/bus:/dev/bus
         volumes:
           - type: bind
             source: /opt/mirakurun/run/
@@ -66,13 +66,13 @@ services:
         container_name: epgstation-v2.7.3
         build:
             context: epgstation
-            dockerfile: Dockerfile
+            dockerfile: debian.Dockerfile
         volumes:
             - ./epgstation/config:/app/config
             - ./epgstation/data:/app/data
             - ./epgstation/thumbnail:/app/thumbnail
             - ./epgstation/logs:/app/logs
-            - ./videos:/app/recorded
+            - ./recorded:/app/recorded
 
         environment:
             TZ: "Asia/Tokyo"
