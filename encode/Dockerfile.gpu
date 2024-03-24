@@ -47,7 +47,7 @@ RUN git clone https://git.ffmpeg.org/ffmpeg.git \
   && cd ffmpeg \
   && git checkout -b n6.1.1 n6.1.1 \
   && PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig" ./configure \
-  --prefix="$HOME/ffmpeg_build" \
+  --prefix="/usr/local" \
   --pkg-config-flags="--static" \
   --extra-cflags="-I$HOME/ffmpeg_build/include" \
   --extra-ldflags="-L$HOME/ffmpeg_build/lib" \
