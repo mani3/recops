@@ -1,4 +1,3 @@
-
 import datetime
 import json
 import re
@@ -28,16 +27,16 @@ class Program:
     else:
       raise ValueError(f"Invalid filename: {self.raw_filename}")
 
-    with open(self.json_file, 'r') as file:
+    with open(self.json_file, "r") as file:
       data = json.load(file)
 
     for program in data:
-      programs = program['programs']
+      programs = program["programs"]
       for program in programs:
-        if program['start'] == self.start_epoch and self.directory_name in program['title']:
-          self.channel = program['channel']
-          self.title = program['title']
-          self.detail = program['detail']
+        if program["start"] == self.start_epoch and self.directory_name in program["title"]:
+          self.channel = program["channel"]
+          self.title = program["title"]
+          self.detail = program["detail"]
           break
 
     if self.title and self.detail and self.date:
