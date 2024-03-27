@@ -17,7 +17,7 @@ class Video:
     json_file = "/tmp/tmp.json"
     json_file = self.extract_epg(json_file)
 
-    program = Program(self.json_file, self.m2ts_file)
+    program = Program(json_file, self.m2ts_file)
     directory_name, output_filename = program.get_output_info()
 
     self.title_dir = os.path.join(output_dir, directory_name)
@@ -34,6 +34,7 @@ class Video:
       epg_json_file,
     ]
     subprocess.run(command, check=True)
+    return epg_json_file
 
   def convert(self):
     if not os.path.exists(self.output_file):
@@ -54,8 +55,8 @@ class Video:
       "-c:v",
       self.codec_name(),
       "-i",
-      self.m2ts_file,
-      output_file_path,
+      f'"{self.m2ts_file}"',
+      f'"{output_file_path}"',
     ]
     subprocess.run(command, check=True)
 
