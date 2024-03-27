@@ -40,7 +40,7 @@ class Program:
           break
 
     if self.title and self.detail and self.date:
-      self.output_filename = f"{self.title}_{self.detail}_{self.date}.mp4"
+      self.output_filename = f"{self.title}_{self.date}.mp4"
     else:
       raise ValueError(f"Program not found: {self.raw_filename}")
 

@@ -15,7 +15,7 @@ class Video:
     self.m2ts_file = m2ts_file
     self.output_dir = output_dir
     json_file = "/tmp/tmp.json"
-    json_file = self.extract_epg(json_file)
+    self.extract_epg(json_file)
 
     program = Program(json_file, self.m2ts_file)
     directory_name, output_filename = program.get_output_info()
@@ -48,17 +48,17 @@ class Video:
     # ffmpeg を使用して m2ts ファイルを mp4 に変換
     command = [
       "ffmpeg",
+      "-i",
+      self.m2ts_file,
       "-crf",
       "23",
       "-tag:v",
       "hvc1",
       "-c:v",
       self.codec_name(),
-      "-i",
-      f'"{self.m2ts_file}"',
-      f'"{output_file_path}"',
+      output_file_path,
     ]
-    subprocess.run(command, check=True)
+    subprocess.run(command, shell=True, check=True)
 
   def codec_name(self):
     return "hevc_nvenc"

@@ -23,13 +23,13 @@ class Caption:
 
     command = [
       "ffmpeg",
+      "-i",
+      self.m2ts_file,
       "-analyzeduration",
       "10MB",
       "-probesize",
       "10MB",
       "-fix_sub_duration",
-      "-i",
-      self.m2ts_file,
       "-c:s",
       "ass",
       self.output_file,
