@@ -17,6 +17,10 @@ class Caption:
     self.output_file = os.path.join(output_dir, f"{name}.{CAPTION_EXT}")
 
   def extract_ass(self):
+    if os.path.exists(self.output_file):
+      logger.info(f"Already caption file exist: {self.output_file}")
+      return self.output_file
+
     command = [
       "ffmpeg",
       "-analyzeduration",
