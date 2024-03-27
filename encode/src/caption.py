@@ -36,7 +36,8 @@ class Caption:
     ]
 
     try:
-      subprocess.run(command, check=True)
+      command = " ".join(command)
+      subprocess.run(command, shell=True)
       logger.info(f"Completed caption file: {self.output_file}")
     except subprocess.CalledProcessError as e:
       logger.error(f"Failed export cation file: {e}")

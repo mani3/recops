@@ -58,7 +58,8 @@ class Video:
       self.codec_name(),
       output_file_path,
     ]
-    subprocess.run(command, shell=True, check=True)
+    command = " ".join(command)
+    subprocess.run(command, shell=True)
 
   def codec_name(self):
     return "hevc_nvenc"
