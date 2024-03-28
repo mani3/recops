@@ -29,7 +29,6 @@ class Caption:
       "10MB",
       "-probesize",
       "10MB",
-      "-fix_sub_duration",
       "-c:s",
       "ass",
       self.output_file,
