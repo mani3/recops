@@ -23,8 +23,15 @@ class Video:
     self.title_dir = os.path.join(output_dir, directory_name)
     self.output_file = os.path.join(self.title_dir, output_filename)
     os.makedirs(self.title_dir, exist_ok=True)
+
     name, _ = os.path.splitext(os.path.basename(self.m2ts_file))
-    shutil.move(json_file, os.path.join(self.title_dir, f"{name}.json"))
+    epg_json_file = os.path.join(self.title_dir, f"{name}.json")
+
+    if os.path.exists(epg_json_file):
+      logger.info(f"Already EPG file exist: {epg_json_file}")
+      shutil.rmtree(json_file)
+    else:
+      shutil.move(json_file, epg_json_file)
 
   def extract_epg(self, epg_json_file):
     command = [
@@ -36,7 +43,6 @@ class Video:
 
     try:
       command = " ".join(command)
-      print(command)
       subprocess.run(command, shell=True)
     except subprocess.CalledProcessError as e:
       logger.error(f"Failed export EPG file: {e}")
@@ -56,14 +62,14 @@ class Video:
     command = [
       "ffmpeg",
       "-i",
-      self.m2ts_file,
+      f"'{self.m2ts_file}'",
       "-crf",
       "23",
       "-tag:v",
       "hvc1",
       "-c:v",
       self.codec_name(),
-      output_file_path,
+      f"'{output_file_path}'",
     ]
     command = " ".join(command)
     subprocess.run(command, shell=True)
