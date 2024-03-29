@@ -23,7 +23,7 @@ class Video:
     self.title_dir = os.path.join(output_dir, directory_name)
     self.output_file = os.path.join(self.title_dir, output_filename)
     os.makedirs(self.title_dir, exist_ok=True)
-    name, _ = os.path.splitext(m2ts_file)
+    name, _ = os.path.splitext(os.path.basename(self.m2ts_file))
     shutil.move(json_file, os.path.join(self.title_dir, f"{name}.json"))
 
   def extract_epg(self, epg_json_file):
