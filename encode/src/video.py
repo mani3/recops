@@ -30,12 +30,13 @@ class Video:
     command = [
       "epgdump",
       "json",
-      self.m2ts_file,
+      f"'{self.m2ts_file}'",
       epg_json_file,
     ]
 
     try:
       command = " ".join(command)
+      print(command)
       subprocess.run(command, shell=True)
     except subprocess.CalledProcessError as e:
       logger.error(f"Failed export EPG file: {e}")
