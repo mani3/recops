@@ -33,7 +33,13 @@ class Video:
       self.m2ts_file,
       epg_json_file,
     ]
-    subprocess.run(command, check=True)
+
+    try:
+      command = " ".join(command)
+      subprocess.run(command, shell=True)
+    except subprocess.CalledProcessError as e:
+      logger.error(f"Failed export EPG file: {e}")
+
     return epg_json_file
 
   def convert(self):
