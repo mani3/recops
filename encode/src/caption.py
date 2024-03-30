@@ -24,14 +24,14 @@ class Caption:
     command = [
       "ffmpeg",
       "-i",
-      self.m2ts_file,
+      f"'{self.m2ts_file}'",
       "-analyzeduration",
       "10MB",
       "-probesize",
       "10MB",
       "-c:s",
       "ass",
-      self.output_file,
+      f"'{self.output_file}'",
     ]
 
     try:
