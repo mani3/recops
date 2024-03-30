@@ -25,13 +25,13 @@ class Video:
     os.makedirs(self.title_dir, exist_ok=True)
 
     name, _ = os.path.splitext(os.path.basename(self.m2ts_file))
-    epg_json_file = os.path.join(self.title_dir, f"{name}.json")
+    self.epg_path = os.path.join(self.title_dir, f"{name}.json")
 
-    if os.path.exists(epg_json_file):
-      logger.info(f"Already EPG file exist: {epg_json_file}")
+    if os.path.exists(self.epg_path):
+      logger.info(f"Already EPG file exist: {self.epg_path}")
       shutil.rmtree(json_file)
     else:
-      shutil.move(json_file, epg_json_file)
+      shutil.move(json_file, self.epg_path)
 
   def extract_epg(self, epg_json_file):
     command = [
@@ -55,7 +55,11 @@ class Video:
     else:
       logger.info(f"Already converted file exist: {self.output_file}")
     caption = Caption(self.m2ts_file, self.title_dir)
-    caption.extract_ass()
+    caption_path = caption.extract_ass()
+
+    if os.path.exists(self.output_file) and os.path.exists(self.epg_path) and os.path.exists(caption_path):
+      shutil.rmtree(self.m2ts_file)
+      logger.info(f"Remove m2ts file: {self.m2ts_file}")
 
   def convert_to_mp4(self, output_file_path):
     # ffmpeg を使用して m2ts ファイルを mp4 に変換
@@ -72,6 +76,7 @@ class Video:
       f"'{output_file_path}'",
     ]
     command = " ".join(command)
+    logger.info(command)
     subprocess.run(command, shell=True)
 
   def codec_name(self):
