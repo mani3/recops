@@ -29,9 +29,11 @@ class Video:
 
     if os.path.exists(self.epg_path):
       logger.info(f"Already EPG file exist: {self.epg_path}")
-      shutil.rmtree(json_file)
     else:
       shutil.move(json_file, self.epg_path)
+
+    if os.path.exists(json_file):
+      os.remove(json_file)
 
   def extract_epg(self, epg_json_file):
     command = [
