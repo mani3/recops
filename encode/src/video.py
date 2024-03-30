@@ -60,7 +60,7 @@ class Video:
     caption_path = caption.extract_ass()
 
     if os.path.exists(self.output_file) and os.path.exists(self.epg_path) and os.path.exists(caption_path):
-      shutil.rmtree(self.m2ts_file)
+      os.remove(self.m2ts_file)
       logger.info(f"Remove m2ts file: {self.m2ts_file}")
 
   def convert_to_mp4(self, output_file_path):
