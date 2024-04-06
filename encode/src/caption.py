@@ -37,6 +37,7 @@ class Caption:
 
     try:
       command = " ".join(command)
+      logger.info(f"Export caption start: {command}")
       subprocess.run(command, shell=True)
       logger.info(f"Completed caption file: {self.output_file}")
     except subprocess.CalledProcessError as e:
