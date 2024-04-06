@@ -15,7 +15,7 @@ class Caption:
 
   def extract_ass(self):
     if os.path.exists(self.output_file):
-      logging.info(f"Already caption file exist: {self.output_file}")
+      print(f"Already caption file exist: {self.output_file}")
       return self.output_file
 
     command = [
@@ -34,9 +34,9 @@ class Caption:
 
     try:
       command = " ".join(command)
-      logging.info(f"Export caption start: {command}")
+      print(f"Export caption start: {command}")
       subprocess.run(command, shell=True)
-      logging.info(f"Completed caption file: {self.output_file}")
+      print(f"Completed caption file: {self.output_file}")
     except subprocess.CalledProcessError as e:
       logging.error(f"Failed export cation file: {e}")
     return self.output_file

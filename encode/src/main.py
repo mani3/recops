@@ -14,7 +14,7 @@ def main(args):
   file_paths = glob.glob(os.path.join(input_dir, "*.m2ts"))
 
   if len(file_paths) == 0:
-    logging.info("No files found in the input directory")
+    print("No files found in the input directory")
     return
 
   for path in file_paths:

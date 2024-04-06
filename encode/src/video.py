@@ -25,7 +25,7 @@ class Video:
     self.epg_path = os.path.join(self.title_dir, f"{name}.json")
 
     if os.path.exists(self.epg_path):
-      logging.info(f"Already EPG file exist: {self.epg_path}")
+      print(f"Already EPG file exist: {self.epg_path}")
     else:
       shutil.move(json_file, self.epg_path)
 
@@ -52,16 +52,16 @@ class Video:
     if not os.path.exists(self.output_file):
       self.convert_to_mp4(self.output_file)
     else:
-      logging.info(f"Already converted file exist: {self.output_file}")
+      print(f"Already converted file exist: {self.output_file}")
     caption = Caption(self.m2ts_file, self.title_dir)
     caption_path = caption.extract_ass()
 
     if os.path.exists(self.output_file) and os.path.exists(self.epg_path):
       if not os.path.exists(caption_path):
-        logging.info(f"Not found ass file: {caption_path}")
+        print(f"Not found ass file: {caption_path}")
 
       os.remove(self.m2ts_file)
-      logging.info(f"Remove m2ts file: {self.m2ts_file}")
+      print(f"Remove m2ts file: {self.m2ts_file}")
 
   def convert_to_mp4(self, output_file_path):
     # ffmpeg を使用して m2ts ファイルを mp4 に変換
@@ -79,7 +79,7 @@ class Video:
       f"'{output_file_path}'",
     ]
     command = " ".join(command)
-    logging.info(f"Encode start: {command}")
+    print(f"Encode start: {command}")
     subprocess.run(command, shell=True)
 
   def codec_name(self):
