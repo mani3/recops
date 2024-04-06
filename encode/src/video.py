@@ -46,9 +46,9 @@ class Video:
     try:
       command = " ".join(command)
       subprocess.run(command, shell=True)
-    except subprocess.CalledProcessError as e:
+    except Exception as e:
       logger.error(f"Failed export EPG file: {e}")
-
+      raise e
     return epg_json_file
 
   def convert(self):
@@ -59,7 +59,10 @@ class Video:
     caption = Caption(self.m2ts_file, self.title_dir)
     caption_path = caption.extract_ass()
 
-    if os.path.exists(self.output_file) and os.path.exists(self.epg_path) and os.path.exists(caption_path):
+    if os.path.exists(self.output_file) and os.path.exists(self.epg_path):
+      if not os.path.exists(caption_path):
+        logger.info(f"Not found ass file: {caption_path}")
+
       os.remove(self.m2ts_file)
       logger.info(f"Remove m2ts file: {self.m2ts_file}")
 
@@ -67,6 +70,7 @@ class Video:
     # ffmpeg を使用して m2ts ファイルを mp4 に変換
     command = [
       "ffmpeg",
+      "-hide_banner",
       "-i",
       f"'{self.m2ts_file}'",
       "-crf",

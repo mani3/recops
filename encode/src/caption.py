@@ -23,6 +23,7 @@ class Caption:
 
     command = [
       "ffmpeg",
+      "-hide_banner",
       "-i",
       f"'{self.m2ts_file}'",
       "-analyzeduration",

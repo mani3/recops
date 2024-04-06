@@ -21,8 +21,11 @@ def main(args):
     return
 
   for path in file_paths:
-    video = Video(path, output_dir)
-    video.convert()
+    try:
+      video = Video(path, output_dir)
+      video.convert()
+    except Exception as e:
+      logger.error(f"Convert error: {path}, {e}")
 
 
 if __name__ == "__main__":
