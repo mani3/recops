@@ -4,9 +4,6 @@ import subprocess
 
 CAPTION_EXT = "ass"
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
 
 class Caption:
   def __init__(self, m2ts_file, output_dir):
@@ -18,7 +15,7 @@ class Caption:
 
   def extract_ass(self):
     if os.path.exists(self.output_file):
-      logger.info(f"Already caption file exist: {self.output_file}")
+      logging.info(f"Already caption file exist: {self.output_file}")
       return self.output_file
 
     command = [
@@ -37,9 +34,9 @@ class Caption:
 
     try:
       command = " ".join(command)
-      logger.info(f"Export caption start: {command}")
+      logging.info(f"Export caption start: {command}")
       subprocess.run(command, shell=True)
-      logger.info(f"Completed caption file: {self.output_file}")
+      logging.info(f"Completed caption file: {self.output_file}")
     except subprocess.CalledProcessError as e:
-      logger.error(f"Failed export cation file: {e}")
+      logging.error(f"Failed export cation file: {e}")
     return self.output_file

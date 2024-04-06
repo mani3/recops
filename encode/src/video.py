@@ -6,9 +6,6 @@ import subprocess
 from caption import Caption
 from program import Program
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
 
 class Video:
   def __init__(self, m2ts_file, output_dir):
@@ -28,7 +25,7 @@ class Video:
     self.epg_path = os.path.join(self.title_dir, f"{name}.json")
 
     if os.path.exists(self.epg_path):
-      logger.info(f"Already EPG file exist: {self.epg_path}")
+      logging.info(f"Already EPG file exist: {self.epg_path}")
     else:
       shutil.move(json_file, self.epg_path)
 
@@ -47,7 +44,7 @@ class Video:
       command = " ".join(command)
       subprocess.run(command, shell=True)
     except Exception as e:
-      logger.error(f"Failed export EPG file: {e}")
+      logging.error(f"Failed export EPG file: {e}")
       raise e
     return epg_json_file
 
@@ -55,16 +52,16 @@ class Video:
     if not os.path.exists(self.output_file):
       self.convert_to_mp4(self.output_file)
     else:
-      logger.info(f"Already converted file exist: {self.output_file}")
+      logging.info(f"Already converted file exist: {self.output_file}")
     caption = Caption(self.m2ts_file, self.title_dir)
     caption_path = caption.extract_ass()
 
     if os.path.exists(self.output_file) and os.path.exists(self.epg_path):
       if not os.path.exists(caption_path):
-        logger.info(f"Not found ass file: {caption_path}")
+        logging.info(f"Not found ass file: {caption_path}")
 
       os.remove(self.m2ts_file)
-      logger.info(f"Remove m2ts file: {self.m2ts_file}")
+      logging.info(f"Remove m2ts file: {self.m2ts_file}")
 
   def convert_to_mp4(self, output_file_path):
     # ffmpeg を使用して m2ts ファイルを mp4 に変換
@@ -82,7 +79,7 @@ class Video:
       f"'{output_file_path}'",
     ]
     command = " ".join(command)
-    logger.info(f"Encode start: {command}")
+    logging.info(f"Encode start: {command}")
     subprocess.run(command, shell=True)
 
   def codec_name(self):

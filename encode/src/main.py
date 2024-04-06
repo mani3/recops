@@ -5,9 +5,6 @@ import os
 
 from video import Video
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
 
 def main(args):
   input_dir = args.input_dir
@@ -17,7 +14,7 @@ def main(args):
   file_paths = glob.glob(os.path.join(input_dir, "*.m2ts"))
 
   if len(file_paths) == 0:
-    logger.info("No files found in the input directory")
+    logging.info("No files found in the input directory")
     return
 
   for path in file_paths:
@@ -25,7 +22,7 @@ def main(args):
       video = Video(path, output_dir)
       video.convert()
     except Exception as e:
-      logger.error(f"Convert error: {path}, {e}")
+      logging.error(f"Convert error: {path}, {e}")
 
 
 if __name__ == "__main__":
