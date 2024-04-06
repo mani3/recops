@@ -82,7 +82,7 @@ class Video:
       f"'{output_file_path}'",
     ]
     command = " ".join(command)
-    logger.info(command)
+    logger.info(f"Encode start: {command}")
     subprocess.run(command, shell=True)
 
   def codec_name(self):
