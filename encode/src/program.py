@@ -46,9 +46,7 @@ class Program:
 
   def extract_directory_name(self, title):
     name = title.replace("アニメ", "", 1).strip()
-    name = name.replace("[新]", "", 1).strip()
-    name = name.replace("[終]", "", 1).strip()
-    name = name.split("[")[0].strip()
+    name = re.sub(r"\[(.{1,2})\]", "", name).strip()
     name = name.split("「")[0].strip()
     name = name.split("第")[0].strip()
     name = name.split("#")[0].strip()
