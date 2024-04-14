@@ -45,8 +45,8 @@ class Program:
       raise ValueError(f"Program not found: {self.raw_filename}")
 
   def extract_directory_name(self, title):
-    name = title.replace("アニメ", "", 1).strip()
-    name = re.sub(r"\[(.{1,2})\]", "", name).strip()
+    name = re.sub(r"\[(.{1,2})\]", "", title).strip()
+    name = re.sub(r"^(アニメ)", "", name).strip()
     name = name.split("「")[0].strip()
     name = name.split("第")[0].strip()
     name = name.split("#")[0].strip()
