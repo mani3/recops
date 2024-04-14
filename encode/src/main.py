@@ -11,7 +11,8 @@ def main(args):
   output_dir = args.output_dir
 
   os.makedirs(output_dir, exist_ok=True)
-  file_paths = glob.glob(os.path.join(input_dir, "*.m2ts")).sort()
+  file_paths = glob.glob(os.path.join(input_dir, "*.m2ts"))
+  file_paths.sort()
 
   if len(file_paths) == 0:
     print("No files found in the input directory")
