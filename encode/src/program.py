@@ -40,7 +40,8 @@ class Program:
           break
 
     if self.title and self.date:
-      self.output_filename = f"{self.title}_{self.date}.mp4"
+      title = self.replace_invalid_characters(self.title)
+      self.output_filename = f"{title}_{self.date}.mp4"
     else:
       raise ValueError(f"Program not found: {self.raw_filename}")
 
@@ -57,3 +58,16 @@ class Program:
 
   def get_output_info(self):
     return self.directory_name, self.output_filename
+
+  def replace_invalid_characters(self, title):
+    title = title.replace("\\", "＼")
+    title = title.replace("/", "／")
+    title = title.replace(":", "：")
+    title = title.replace("*", "＊")
+    title = title.replace("?", "？")
+    title = title.replace('"', "”")
+    title = title.replace("'", "’")
+    title = title.replace("<", "＜")
+    title = title.replace(">", "＞")
+    title = title.replace("|", "｜")
+    return re.sub(r'[\\/:*?"<>|]', "", title)
