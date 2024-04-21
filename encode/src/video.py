@@ -36,7 +36,7 @@ class Video:
     command = [
       "epgdump",
       "json",
-      f"'{self.m2ts_file}'",
+      f'"{self.m2ts_file}"',
       epg_json_file,
     ]
 
