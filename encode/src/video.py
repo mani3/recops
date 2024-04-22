@@ -69,14 +69,14 @@ class Video:
       "ffmpeg",
       "-hide_banner",
       "-i",
-      f"'{self.m2ts_file}'",
+      f'"{self.m2ts_file}"',
       "-crf",
       "23",
       "-tag:v",
       "hvc1",
       "-c:v",
       self.codec_name(),
-      f"'{output_file_path}'",
+      f'"{output_file_path}"',
     ]
     command = " ".join(command)
     print(f"Encode start: {command}")
