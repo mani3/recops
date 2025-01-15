@@ -32,6 +32,7 @@ class Program:
         data = json.load(file)
     except Exception as e:
       print(f"Failed to load json file: {self.json_file}, {e}")
+      data = []
 
     for program in data:
       programs = program["programs"]
