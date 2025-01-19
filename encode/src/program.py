@@ -74,4 +74,5 @@ class Program:
     title = title.replace("<", "＜")
     title = title.replace(">", "＞")
     title = title.replace("|", "｜")
+    title = title.replace(" ", "　")
     return re.sub(r'[\\/:*?"<>|]', "", title)
